@@ -6,7 +6,7 @@ const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
 canvas.width = innerWidth
-canvas.height = innerHeight
+canvas.height = innerHeight - document.getElementById("buttons").getBoundingClientRect().height;
 
 const gravity = 0.5
 
