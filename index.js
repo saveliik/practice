@@ -126,35 +126,15 @@ addEventListener('keyup', ({ keyCode }) => {
     }
 })
 
-const leftButton = document.createElement('button')
-const upButton = document.createElement('button')
-const rightButton = document.createElement('button')
-
-leftButton.innerText = '<-'
-upButton.innerText = '/\\'
-rightButton.innerText = '->'
-
-document.body.appendChild(leftButton)
-document.body.appendChild(upButton)
-document.body.appendChild(rightButton)
-
-leftButton.style.position = 'fixed'
-leftButton.style.left = '20px'
-leftButton.style.bottom = '20px'
-
-upButton.style.position = 'fixed'
-upButton.style.left = '110px'
-upButton.style.bottom = '20px'
-
-rightButton.style.position = 'fixed'
-rightButton.style.left = '200px'
-rightButton.style.bottom = '20px'
+const leftButton = document.getElementById('left')
+const upButton = document.getElementById('up')
+const rightButton = document.getElementById('right')
 
 const buttons = [leftButton, upButton, rightButton]
 
 buttons.forEach(button => {
-    button.style.width = '80px'
-    button.style.height = '80px'
+    button.style.width = '26.666vw'
+    button.style.height = '26.666vw'
     button.style.fontSize = '40px'
     button.style.opacity = '0.7'
     button.style.borderRadius = '15px'

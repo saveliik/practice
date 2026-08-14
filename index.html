@@ -2,6 +2,30 @@
     body{
         margin: 0;
     }
+    #buttons {
+        display: none;
+    }
+    @media (pointer:coarse) {
+     #buttons {
+        position:absolute;
+        display: flex;
+        gap:1.5vw;
+        translate: -50% 0%;
+        left:50%;
+        bottom:0%;
+     }
+    }
+    button {
+        display:grid;
+        place-items: center;
+    }
 </style>
 <canvas></canvas>
+
+<div id="buttons">
+    <button id="left">&lt;-</button>
+    <button id="up">/\</button>
+    <button id="right">-&gt;</button>
+</div>
+
 <script src = "index.js"> </script>
