@@ -50,7 +50,7 @@ class Player {
             this.velocity.y = 0
             this.canJump = true
 
-            if (keys.up.pressed) {
+            if (keys.left.pressed && keys.right.pressed) {
                 this.velocity.y = -20
                 this.canJump = false
             }
@@ -66,9 +66,6 @@ const keys = {
     },
     left: {
         pressed: false
-    },
-    up: {
-        pressed: false
     }
 }
 
@@ -79,10 +76,10 @@ function animate() {
 
     player.update()
 
-    if (keys.right.pressed) {
+    if (keys.right.pressed && !keys.left.pressed) {
         player.velocity.x = 10
     } 
-    else if (keys.left.pressed) {
+    else if (keys.left.pressed && !keys.right.pressed) {
         player.velocity.x = -10
     } 
     else {
@@ -98,16 +95,14 @@ addEventListener('keydown', ({ keyCode }) => {
         case 65:
             keys.left.pressed = true
             break
-
-        case 83:
-            break
-
         case 68:
             keys.right.pressed = true
             break
-
         case 87:
-            keys.up.pressed = true
+            if (player.canJump) {
+                player.velocity.y = -20
+                player.canJump = false
+            }
             break
     }
 })
@@ -119,15 +114,83 @@ addEventListener('keyup', ({ keyCode }) => {
             keys.left.pressed = false
             break
 
-        case 83:
-            break
-
         case 68:
             keys.right.pressed = false
             break
+    }
+})
 
-        case 87:
-            keys.up.pressed = false
-            break
+const leftButton = document.createElement('button')
+const rightButton = document.createElement('button')
+
+leftButton.innerText = '<-'
+rightButton.innerText = '->'
+
+document.body.appendChild(leftButton)
+document.body.appendChild(rightButton)
+
+leftButton.style.position = 'fixed'
+leftButton.style.left = '20px'
+leftButton.style.bottom = '20px'
+
+rightButton.style.position = 'fixed'
+rightButton.style.left = '110px'
+rightButton.style.bottom = '20px'
+
+const buttons = [leftButton, rightButton]
+
+buttons.forEach(button => {
+    button.style.width = '80px'
+    button.style.height = '80px'
+    button.style.fontSize = '40px'
+    button.style.opacity = '0.7'
+    button.style.borderRadius = '15px'
+    button.style.border = '2px solid black'
+    button.style.touchAction = 'none'
+    button.style.userSelect = 'none'
+    button.style.webkitUserSelect = 'none'
+})
+
+leftButton.addEventListener('pointerdown', (event) => {
+    event.preventDefault()
+
+    keys.left.pressed = true
+})
+
+leftButton.addEventListener('pointerup', (event) => {
+    event.preventDefault()
+
+    keys.left.pressed = false
+})
+
+leftButton.addEventListener('pointercancel', () => {
+    keys.left.pressed = false
+})
+
+leftButton.addEventListener('pointerleave', (event) => {
+    if (event.buttons === 0) {
+        keys.left.pressed = false
+    }
+})
+
+rightButton.addEventListener('pointerdown', (event) => {
+    event.preventDefault()
+
+    keys.right.pressed = true
+})
+
+rightButton.addEventListener('pointerup', (event) => {
+    event.preventDefault()
+
+    keys.right.pressed = false
+})
+
+rightButton.addEventListener('pointercancel', () => {
+    keys.right.pressed = false
+})
+
+rightButton.addEventListener('pointerleave', (event) => {
+    if (event.buttons === 0) {
+        keys.right.pressed = false
     }
 })
