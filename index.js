@@ -1,3 +1,7 @@
+// git add -A 
+// git commit -m "Hello World"
+// git push
+
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
@@ -95,9 +99,11 @@ addEventListener('keydown', ({ keyCode }) => {
         case 65:
             keys.left.pressed = true
             break
+
         case 68:
             keys.right.pressed = true
             break
+
         case 87:
             if (player.canJump) {
                 player.velocity.y = -20
@@ -121,23 +127,30 @@ addEventListener('keyup', ({ keyCode }) => {
 })
 
 const leftButton = document.createElement('button')
+const upButton = document.createElement('button')
 const rightButton = document.createElement('button')
 
 leftButton.innerText = '<-'
+upButton.innerText = '/\\'
 rightButton.innerText = '->'
 
 document.body.appendChild(leftButton)
+document.body.appendChild(upButton)
 document.body.appendChild(rightButton)
 
 leftButton.style.position = 'fixed'
 leftButton.style.left = '20px'
 leftButton.style.bottom = '20px'
 
+upButton.style.position = 'fixed'
+upButton.style.left = '110px'
+upButton.style.bottom = '20px'
+
 rightButton.style.position = 'fixed'
-rightButton.style.left = '110px'
+rightButton.style.left = '200px'
 rightButton.style.bottom = '20px'
 
-const buttons = [leftButton, rightButton]
+const buttons = [leftButton, upButton, rightButton]
 
 buttons.forEach(button => {
     button.style.width = '80px'
@@ -153,13 +166,11 @@ buttons.forEach(button => {
 
 leftButton.addEventListener('pointerdown', (event) => {
     event.preventDefault()
-
     keys.left.pressed = true
 })
 
 leftButton.addEventListener('pointerup', (event) => {
     event.preventDefault()
-
     keys.left.pressed = false
 })
 
@@ -175,13 +186,11 @@ leftButton.addEventListener('pointerleave', (event) => {
 
 rightButton.addEventListener('pointerdown', (event) => {
     event.preventDefault()
-
     keys.right.pressed = true
 })
 
 rightButton.addEventListener('pointerup', (event) => {
     event.preventDefault()
-
     keys.right.pressed = false
 })
 
@@ -192,5 +201,25 @@ rightButton.addEventListener('pointercancel', () => {
 rightButton.addEventListener('pointerleave', (event) => {
     if (event.buttons === 0) {
         keys.right.pressed = false
+    }
+})
+
+upButton.addEventListener('pointerdown', (event) => {
+    event.preventDefault()
+
+    if (player.canJump) {
+        player.velocity.y = -20
+        player.canJump = false
+    }
+})
+
+upButton.addEventListener('pointerup', (event) => {
+    event.preventDefault()
+})
+
+upButton.addEventListener('pointercancel', () => {})
+
+upButton.addEventListener('pointerleave', (event) => {
+    if (event.buttons === 0) {
     }
 })
